@@ -9,6 +9,7 @@
 
 namespace Taller_Carros.Models
 {
+    using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
     
@@ -29,14 +30,20 @@ namespace Taller_Carros.Models
         public int kilometraje { get; set; }
         public int numero_puertas { get; set; }
         public int id_color { get; set; }
-    
+
+        [JsonIgnore]
         public virtual Cliente Cliente { get; set; }
+        [JsonIgnore]
         public virtual Color Color { get; set; }
+        [JsonIgnore]
         public virtual Modelo Modelo { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        [JsonIgnore]
         public virtual ICollection<Reparacion> Reparacions { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        [JsonIgnore]
         public virtual ICollection<Servicio_adicional> Servicio_adicional { get; set; }
+        [JsonIgnore]
         public virtual Tipo_Vehiculo Tipo_Vehiculo { get; set; }
     }
 }
