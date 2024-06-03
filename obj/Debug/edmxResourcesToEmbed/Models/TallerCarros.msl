@@ -1,0 +1,183 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="DBTallerCarrosModelStoreContainer" CdmEntityContainer="DBTallerCarrosEntities">
+    <EntitySetMapping Name="Cargoes">
+      <EntityTypeMapping TypeName="DBTallerCarrosModel.Cargo">
+        <MappingFragment StoreEntitySet="Cargo">
+          <ScalarProperty Name="id_cargo" ColumnName="id_cargo" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+          <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Clientes">
+      <EntityTypeMapping TypeName="DBTallerCarrosModel.Cliente">
+        <MappingFragment StoreEntitySet="Cliente">
+          <ScalarProperty Name="documento" ColumnName="documento" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+          <ScalarProperty Name="apellido" ColumnName="apellido" />
+          <ScalarProperty Name="telefono" ColumnName="telefono" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Colors">
+      <EntityTypeMapping TypeName="DBTallerCarrosModel.Color">
+        <MappingFragment StoreEntitySet="Color">
+          <ScalarProperty Name="id_color" ColumnName="id_color" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Empleadoes">
+      <EntityTypeMapping TypeName="DBTallerCarrosModel.Empleado">
+        <MappingFragment StoreEntitySet="Empleado">
+          <ScalarProperty Name="documento" ColumnName="documento" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+          <ScalarProperty Name="apellido" ColumnName="apellido" />
+          <ScalarProperty Name="telefono" ColumnName="telefono" />
+          <ScalarProperty Name="id_cargo" ColumnName="id_cargo" />
+          <ScalarProperty Name="fecha_contratacion" ColumnName="fecha_contratacion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Facturas">
+      <EntityTypeMapping TypeName="DBTallerCarrosModel.Factura">
+        <MappingFragment StoreEntitySet="Factura">
+          <ScalarProperty Name="id_factura" ColumnName="id_factura" />
+          <ScalarProperty Name="total" ColumnName="total" />
+          <ScalarProperty Name="fecha" ColumnName="fecha" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Marcas">
+      <EntityTypeMapping TypeName="DBTallerCarrosModel.Marca">
+        <MappingFragment StoreEntitySet="Marca">
+          <ScalarProperty Name="id_marca" ColumnName="id_marca" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Modeloes">
+      <EntityTypeMapping TypeName="DBTallerCarrosModel.Modelo">
+        <MappingFragment StoreEntitySet="Modelo">
+          <ScalarProperty Name="id_modelo" ColumnName="id_modelo" />
+          <ScalarProperty Name="id_marca" ColumnName="id_marca" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Productoes">
+      <EntityTypeMapping TypeName="DBTallerCarrosModel.Producto">
+        <MappingFragment StoreEntitySet="Producto">
+          <ScalarProperty Name="id_producto" ColumnName="id_producto" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+          <ScalarProperty Name="id_tipo_producto" ColumnName="id_tipo_producto" />
+          <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+          <ScalarProperty Name="precio" ColumnName="precio" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Proveedors">
+      <EntityTypeMapping TypeName="DBTallerCarrosModel.Proveedor">
+        <MappingFragment StoreEntitySet="Proveedor">
+          <ScalarProperty Name="id_proveedor" ColumnName="id_proveedor" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+          <ScalarProperty Name="telefono" ColumnName="telefono" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Reparacions">
+      <EntityTypeMapping TypeName="DBTallerCarrosModel.Reparacion">
+        <MappingFragment StoreEntitySet="Reparacion">
+          <ScalarProperty Name="id_reparacion" ColumnName="id_reparacion" />
+          <ScalarProperty Name="id_tipo_reparacion" ColumnName="id_tipo_reparacion" />
+          <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+          <ScalarProperty Name="fecha_reparacion" ColumnName="fecha_reparacion" />
+          <ScalarProperty Name="costo_reparacion" ColumnName="costo_reparacion" />
+          <ScalarProperty Name="id_vehiculo" ColumnName="id_vehiculo" />
+          <ScalarProperty Name="documento_empleado" ColumnName="documento_empleado" />
+          <ScalarProperty Name="id_factura" ColumnName="id_factura" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Servicio_adicional">
+      <EntityTypeMapping TypeName="DBTallerCarrosModel.Servicio_adicional">
+        <MappingFragment StoreEntitySet="Servicio_adicional">
+          <ScalarProperty Name="id_servicio_adicional" ColumnName="id_servicio_adicional" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+          <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+          <ScalarProperty Name="precio" ColumnName="precio" />
+          <ScalarProperty Name="documento_empleado" ColumnName="documento_empleado" />
+          <ScalarProperty Name="id_factura" ColumnName="id_factura" />
+          <ScalarProperty Name="id_vehiculo" ColumnName="id_vehiculo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sysdiagrams">
+      <EntityTypeMapping TypeName="DBTallerCarrosModel.sysdiagram">
+        <MappingFragment StoreEntitySet="sysdiagrams">
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tipo_producto">
+      <EntityTypeMapping TypeName="DBTallerCarrosModel.Tipo_producto">
+        <MappingFragment StoreEntitySet="Tipo_producto">
+          <ScalarProperty Name="id_tipo_producto" ColumnName="id_tipo_producto" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tipo_reparacion">
+      <EntityTypeMapping TypeName="DBTallerCarrosModel.Tipo_reparacion">
+        <MappingFragment StoreEntitySet="Tipo_reparacion">
+          <ScalarProperty Name="id_tipo_reparacion" ColumnName="id_tipo_reparacion" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tipo_Vehiculo">
+      <EntityTypeMapping TypeName="DBTallerCarrosModel.Tipo_Vehiculo">
+        <MappingFragment StoreEntitySet="Tipo_Vehiculo">
+          <ScalarProperty Name="id_tipo_vehiculo" ColumnName="id_tipo_vehiculo" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Vehiculoes">
+      <EntityTypeMapping TypeName="DBTallerCarrosModel.Vehiculo">
+        <MappingFragment StoreEntitySet="Vehiculo">
+          <ScalarProperty Name="id_vehiculo" ColumnName="id_vehiculo" />
+          <ScalarProperty Name="id_tipo_vehiculo" ColumnName="id_tipo_vehiculo" />
+          <ScalarProperty Name="documento_cliente" ColumnName="documento_cliente" />
+          <ScalarProperty Name="id_modelo" ColumnName="id_modelo" />
+          <ScalarProperty Name="anio" ColumnName="anio" />
+          <ScalarProperty Name="kilometraje" ColumnName="kilometraje" />
+          <ScalarProperty Name="numero_puertas" ColumnName="numero_puertas" />
+          <ScalarProperty Name="id_color" ColumnName="id_color" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="detalle_factura_producto">
+      <EntityTypeMapping TypeName="DBTallerCarrosModel.detalle_factura_producto">
+        <MappingFragment StoreEntitySet="detalle_factura_producto">
+          <ScalarProperty Name="id_factura" ColumnName="id_factura" />
+          <ScalarProperty Name="id_producto" ColumnName="id_producto" />
+          <ScalarProperty Name="cantidad" ColumnName="cantidad" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="detalle_producto_proveedor" TypeName="DBTallerCarrosModel.detalle_producto_proveedor" StoreEntitySet="detalle_producto_proveedor">
+      <EndProperty Name="Producto">
+        <ScalarProperty Name="id_producto" ColumnName="id_producto" />
+      </EndProperty>
+      <EndProperty Name="Proveedor">
+        <ScalarProperty Name="id_proveedor" ColumnName="id_proveedor" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping>
