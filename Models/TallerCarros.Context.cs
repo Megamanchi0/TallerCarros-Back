@@ -28,6 +28,13 @@ namespace Taller_Carros.Models
         public virtual DbSet<Cargo> Cargoes { get; set; }
         public virtual DbSet<Cliente> Clientes { get; set; }
         public virtual DbSet<Color> Colors { get; set; }
+        public virtual DbSet<detalle_factura_producto> detalle_factura_producto { get; set; }
+        public virtual DbSet<detalle_factura_reparacion> detalle_factura_reparacion { get; set; }
+        public virtual DbSet<detalle_factura_servicio> detalle_factura_servicio { get; set; }
+        public virtual DbSet<detalle_producto_proveedor> detalle_producto_proveedor { get; set; }
+        public virtual DbSet<detalle_reparacion_empleado> detalle_reparacion_empleado { get; set; }
+        public virtual DbSet<detalle_vehiculo_reparacion> detalle_vehiculo_reparacion { get; set; }
+        public virtual DbSet<detalle_vehiculo_servicio> detalle_vehiculo_servicio { get; set; }
         public virtual DbSet<Empleado> Empleadoes { get; set; }
         public virtual DbSet<Factura> Facturas { get; set; }
         public virtual DbSet<Marca> Marcas { get; set; }
@@ -36,11 +43,9 @@ namespace Taller_Carros.Models
         public virtual DbSet<Proveedor> Proveedors { get; set; }
         public virtual DbSet<Reparacion> Reparacions { get; set; }
         public virtual DbSet<Servicio_adicional> Servicio_adicional { get; set; }
-        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<Tipo_producto> Tipo_producto { get; set; }
         public virtual DbSet<Tipo_reparacion> Tipo_reparacion { get; set; }
         public virtual DbSet<Tipo_Vehiculo> Tipo_Vehiculo { get; set; }
         public virtual DbSet<Vehiculo> Vehiculoes { get; set; }
-        public virtual DbSet<detalle_factura_producto> detalle_factura_producto { get; set; }
     }
 }

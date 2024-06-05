@@ -80,5 +80,15 @@ namespace Taller_Carros.Clases
                        Cargo = C.nombre
                    };
         }
+
+        public IQueryable LlenarCombo()
+        {
+            return from E in taller.Set<Empleado>()
+                   select new
+                   {
+                       Codigo = E.documento,
+                       Nombre = E.nombre + " " + E.apellido
+                   };
+        }
     }
 }

@@ -17,8 +17,7 @@ namespace Taller_Carros.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Empleado()
         {
-            this.Reparacions = new HashSet<Reparacion>();
-            this.Servicio_adicional = new HashSet<Servicio_adicional>();
+            this.detalle_reparacion_empleado = new HashSet<detalle_reparacion_empleado>();
         }
     
         public int documento { get; set; }
@@ -30,8 +29,6 @@ namespace Taller_Carros.Models
     
         public virtual Cargo Cargo { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Reparacion> Reparacions { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Servicio_adicional> Servicio_adicional { get; set; }
+        public virtual ICollection<detalle_reparacion_empleado> detalle_reparacion_empleado { get; set; }
     }
 }

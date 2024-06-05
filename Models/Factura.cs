@@ -18,8 +18,8 @@ namespace Taller_Carros.Models
         public Factura()
         {
             this.detalle_factura_producto = new HashSet<detalle_factura_producto>();
-            this.Reparacions = new HashSet<Reparacion>();
-            this.Servicio_adicional = new HashSet<Servicio_adicional>();
+            this.detalle_factura_reparacion = new HashSet<detalle_factura_reparacion>();
+            this.detalle_factura_servicio = new HashSet<detalle_factura_servicio>();
         }
     
         public int id_factura { get; set; }
@@ -29,8 +29,8 @@ namespace Taller_Carros.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<detalle_factura_producto> detalle_factura_producto { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Reparacion> Reparacions { get; set; }
+        public virtual ICollection<detalle_factura_reparacion> detalle_factura_reparacion { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Servicio_adicional> Servicio_adicional { get; set; }
+        public virtual ICollection<detalle_factura_servicio> detalle_factura_servicio { get; set; }
     }
 }

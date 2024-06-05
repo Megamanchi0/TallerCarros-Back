@@ -29,27 +29,67 @@
           <Property Name="id_color" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="nombre" Type="varchar" MaxLength="80" Nullable="false" />
         </EntityType>
-        <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'DBTallerCarros.dbo.detalle_factura_producto' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
         <EntityType Name="detalle_factura_producto">
           <Key>
-            <PropertyRef Name="id_factura" />
-            <PropertyRef Name="id_producto" />
-            <PropertyRef Name="cantidad" />
+            <PropertyRef Name="id" />
           </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="id_factura" Type="int" Nullable="false" />
           <Property Name="id_producto" Type="int" Nullable="false" />
           <Property Name="cantidad" Type="int" Nullable="false" />
+          <Property Name="valorUnitario" Type="money" />
         </EntityType>
-        <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'DBTallerCarros.dbo.detalle_producto_proveedor' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <EntityType Name="detalle_factura_reparacion">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_factura" Type="int" Nullable="false" />
+          <Property Name="id_reparacion" Type="int" Nullable="false" />
+          <Property Name="costo" Type="money" />
+        </EntityType>
+        <EntityType Name="detalle_factura_servicio">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_servicio" Type="int" Nullable="false" />
+          <Property Name="id_factura" Type="int" Nullable="false" />
+          <Property Name="precio" Type="money" Nullable="false" />
+        </EntityType>
         <EntityType Name="detalle_producto_proveedor">
           <Key>
-            <PropertyRef Name="id_proveedor" />
-            <PropertyRef Name="id_producto" />
+            <PropertyRef Name="id" />
           </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="id_proveedor" Type="int" Nullable="false" />
           <Property Name="id_producto" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="detalle_reparacion_empleado">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="documento" Type="int" Nullable="false" />
+          <Property Name="id_reparacion" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="detalle_vehiculo_reparacion">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_vehiculo" Type="varchar" MaxLength="10" />
+          <Property Name="id_reparacion" Type="int" Nullable="false" />
+          <Property Name="fecha_reparacion" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="detalle_vehiculo_servicio">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_vehiculo" Type="varchar" MaxLength="10" />
+          <Property Name="id_servicio" Type="int" Nullable="false" />
+          <Property Name="fecha_servicio" Type="date" Nullable="false" />
         </EntityType>
         <EntityType Name="Empleado">
           <Key>
@@ -109,12 +149,8 @@ advertencia 6002: La tabla o vista 'DBTallerCarros.dbo.detalle_producto_proveedo
           </Key>
           <Property Name="id_reparacion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="id_tipo_reparacion" Type="int" Nullable="false" />
-          <Property Name="descripcion" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="fecha_reparacion" Type="date" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="costo_reparacion" Type="money" Nullable="false" />
-          <Property Name="id_vehiculo" Type="varchar" MaxLength="10" Nullable="false" />
-          <Property Name="documento_empleado" Type="int" Nullable="false" />
-          <Property Name="id_factura" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Servicio_adicional">
           <Key>
@@ -122,21 +158,7 @@ advertencia 6002: La tabla o vista 'DBTallerCarros.dbo.detalle_producto_proveedo
           </Key>
           <Property Name="id_servicio_adicional" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="nombre" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="descripcion" Type="varchar" MaxLength="200" Nullable="false" />
           <Property Name="precio" Type="money" Nullable="false" />
-          <Property Name="documento_empleado" Type="int" Nullable="false" />
-          <Property Name="id_factura" Type="int" Nullable="false" />
-          <Property Name="id_vehiculo" Type="varchar" MaxLength="10" Nullable="false" />
-        </EntityType>
-        <EntityType Name="sysdiagrams">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="principal_id" Type="int" Nullable="false" />
-          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="version" Type="int" />
-          <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
         <EntityType Name="Tipo_producto">
           <Key>
@@ -232,6 +254,54 @@ advertencia 6002: La tabla o vista 'DBTallerCarros.dbo.detalle_producto_proveedo
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_FACTURA_REPARACION_F">
+          <End Role="Factura" Type="Self.Factura" Multiplicity="1" />
+          <End Role="detalle_factura_reparacion" Type="Self.detalle_factura_reparacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Factura">
+              <PropertyRef Name="id_factura" />
+            </Principal>
+            <Dependent Role="detalle_factura_reparacion">
+              <PropertyRef Name="id_factura" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FACTURA_REPARACION_R">
+          <End Role="Reparacion" Type="Self.Reparacion" Multiplicity="1" />
+          <End Role="detalle_factura_reparacion" Type="Self.detalle_factura_reparacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Reparacion">
+              <PropertyRef Name="id_reparacion" />
+            </Principal>
+            <Dependent Role="detalle_factura_reparacion">
+              <PropertyRef Name="id_reparacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FACTURA_SERVICIO_F">
+          <End Role="Factura" Type="Self.Factura" Multiplicity="1" />
+          <End Role="detalle_factura_servicio" Type="Self.detalle_factura_servicio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Factura">
+              <PropertyRef Name="id_factura" />
+            </Principal>
+            <Dependent Role="detalle_factura_servicio">
+              <PropertyRef Name="id_factura" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FACTURA_SERVICIO_S">
+          <End Role="Servicio_adicional" Type="Self.Servicio_adicional" Multiplicity="1" />
+          <End Role="detalle_factura_servicio" Type="Self.detalle_factura_servicio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Servicio_adicional">
+              <PropertyRef Name="id_servicio_adicional" />
+            </Principal>
+            <Dependent Role="detalle_factura_servicio">
+              <PropertyRef Name="id_servicio" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_MODELO_MARCA">
           <End Role="Marca" Type="Self.Marca" Multiplicity="1" />
           <End Role="Modelo" Type="Self.Modelo" Multiplicity="*" />
@@ -256,27 +326,27 @@ advertencia 6002: La tabla o vista 'DBTallerCarros.dbo.detalle_producto_proveedo
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_REPARACION_EMPLEADO">
+        <Association Name="FK_REPARACION_EMPLEADO_E">
           <End Role="Empleado" Type="Self.Empleado" Multiplicity="1" />
-          <End Role="Reparacion" Type="Self.Reparacion" Multiplicity="*" />
+          <End Role="detalle_reparacion_empleado" Type="Self.detalle_reparacion_empleado" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Empleado">
               <PropertyRef Name="documento" />
             </Principal>
-            <Dependent Role="Reparacion">
-              <PropertyRef Name="documento_empleado" />
+            <Dependent Role="detalle_reparacion_empleado">
+              <PropertyRef Name="documento" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_REPARACION_FACTURA">
-          <End Role="Factura" Type="Self.Factura" Multiplicity="1" />
-          <End Role="Reparacion" Type="Self.Reparacion" Multiplicity="*" />
+        <Association Name="FK_REPARACION_EMPLEADO_R">
+          <End Role="Reparacion" Type="Self.Reparacion" Multiplicity="1" />
+          <End Role="detalle_reparacion_empleado" Type="Self.detalle_reparacion_empleado" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Factura">
-              <PropertyRef Name="id_factura" />
+            <Principal Role="Reparacion">
+              <PropertyRef Name="id_reparacion" />
             </Principal>
-            <Dependent Role="Reparacion">
-              <PropertyRef Name="id_factura" />
+            <Dependent Role="detalle_reparacion_empleado">
+              <PropertyRef Name="id_reparacion" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -289,54 +359,6 @@ advertencia 6002: La tabla o vista 'DBTallerCarros.dbo.detalle_producto_proveedo
             </Principal>
             <Dependent Role="Reparacion">
               <PropertyRef Name="id_tipo_reparacion" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_REPARACION_VEHICULO">
-          <End Role="Vehiculo" Type="Self.Vehiculo" Multiplicity="1" />
-          <End Role="Reparacion" Type="Self.Reparacion" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Vehiculo">
-              <PropertyRef Name="id_vehiculo" />
-            </Principal>
-            <Dependent Role="Reparacion">
-              <PropertyRef Name="id_vehiculo" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_SERVICIO_EMPLEADO">
-          <End Role="Empleado" Type="Self.Empleado" Multiplicity="1" />
-          <End Role="Servicio_adicional" Type="Self.Servicio_adicional" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Empleado">
-              <PropertyRef Name="documento" />
-            </Principal>
-            <Dependent Role="Servicio_adicional">
-              <PropertyRef Name="documento_empleado" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_SERVICIO_FACTURA">
-          <End Role="Factura" Type="Self.Factura" Multiplicity="1" />
-          <End Role="Servicio_adicional" Type="Self.Servicio_adicional" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Factura">
-              <PropertyRef Name="id_factura" />
-            </Principal>
-            <Dependent Role="Servicio_adicional">
-              <PropertyRef Name="id_factura" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_SERVICIO_VEHICULO">
-          <End Role="Vehiculo" Type="Self.Vehiculo" Multiplicity="1" />
-          <End Role="Servicio_adicional" Type="Self.Servicio_adicional" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Vehiculo">
-              <PropertyRef Name="id_vehiculo" />
-            </Principal>
-            <Dependent Role="Servicio_adicional">
-              <PropertyRef Name="id_vehiculo" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -376,6 +398,54 @@ advertencia 6002: La tabla o vista 'DBTallerCarros.dbo.detalle_producto_proveedo
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_VEHICULO_REPARACION_R">
+          <End Role="Reparacion" Type="Self.Reparacion" Multiplicity="1" />
+          <End Role="detalle_vehiculo_reparacion" Type="Self.detalle_vehiculo_reparacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Reparacion">
+              <PropertyRef Name="id_reparacion" />
+            </Principal>
+            <Dependent Role="detalle_vehiculo_reparacion">
+              <PropertyRef Name="id_reparacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VEHICULO_REPARACION_V">
+          <End Role="Vehiculo" Type="Self.Vehiculo" Multiplicity="0..1" />
+          <End Role="detalle_vehiculo_reparacion" Type="Self.detalle_vehiculo_reparacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Vehiculo">
+              <PropertyRef Name="id_vehiculo" />
+            </Principal>
+            <Dependent Role="detalle_vehiculo_reparacion">
+              <PropertyRef Name="id_vehiculo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VEHICULO_SERVICIO_S">
+          <End Role="Servicio_adicional" Type="Self.Servicio_adicional" Multiplicity="1" />
+          <End Role="detalle_vehiculo_servicio" Type="Self.detalle_vehiculo_servicio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Servicio_adicional">
+              <PropertyRef Name="id_servicio_adicional" />
+            </Principal>
+            <Dependent Role="detalle_vehiculo_servicio">
+              <PropertyRef Name="id_servicio" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VEHICULO_SERVICIO_V">
+          <End Role="Vehiculo" Type="Self.Vehiculo" Multiplicity="0..1" />
+          <End Role="detalle_vehiculo_servicio" Type="Self.detalle_vehiculo_servicio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Vehiculo">
+              <PropertyRef Name="id_vehiculo" />
+            </Principal>
+            <Dependent Role="detalle_vehiculo_servicio">
+              <PropertyRef Name="id_vehiculo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_VEHICULO_TIPO_VEHICULO">
           <End Role="Tipo_Vehiculo" Type="Self.Tipo_Vehiculo" Multiplicity="1" />
           <End Role="Vehiculo" Type="Self.Vehiculo" Multiplicity="*" />
@@ -392,6 +462,13 @@ advertencia 6002: La tabla o vista 'DBTallerCarros.dbo.detalle_producto_proveedo
           <EntitySet Name="Cargo" EntityType="Self.Cargo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Cliente" EntityType="Self.Cliente" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Color" EntityType="Self.Color" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="detalle_factura_producto" EntityType="Self.detalle_factura_producto" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="detalle_factura_reparacion" EntityType="Self.detalle_factura_reparacion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="detalle_factura_servicio" EntityType="Self.detalle_factura_servicio" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="detalle_producto_proveedor" EntityType="Self.detalle_producto_proveedor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="detalle_reparacion_empleado" EntityType="Self.detalle_reparacion_empleado" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="detalle_vehiculo_reparacion" EntityType="Self.detalle_vehiculo_reparacion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="detalle_vehiculo_servicio" EntityType="Self.detalle_vehiculo_servicio" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Empleado" EntityType="Self.Empleado" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Factura" EntityType="Self.Factura" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Marca" EntityType="Self.Marca" Schema="dbo" store:Type="Tables" />
@@ -400,24 +477,10 @@ advertencia 6002: La tabla o vista 'DBTallerCarros.dbo.detalle_producto_proveedo
           <EntitySet Name="Proveedor" EntityType="Self.Proveedor" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Reparacion" EntityType="Self.Reparacion" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Servicio_adicional" EntityType="Self.Servicio_adicional" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tipo_producto" EntityType="Self.Tipo_producto" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tipo_reparacion" EntityType="Self.Tipo_reparacion" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tipo_Vehiculo" EntityType="Self.Tipo_Vehiculo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Vehiculo" EntityType="Self.Vehiculo" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="detalle_factura_producto" EntityType="Self.detalle_factura_producto" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [detalle_factura_producto].[id_factura] AS [id_factura], 
-    [detalle_factura_producto].[id_producto] AS [id_producto], 
-    [detalle_factura_producto].[cantidad] AS [cantidad]
-    FROM [dbo].[detalle_factura_producto] AS [detalle_factura_producto]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="detalle_producto_proveedor" EntityType="Self.detalle_producto_proveedor" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [detalle_producto_proveedor].[id_proveedor] AS [id_proveedor], 
-    [detalle_producto_proveedor].[id_producto] AS [id_producto]
-    FROM [dbo].[detalle_producto_proveedor] AS [detalle_producto_proveedor]</DefiningQuery>
-          </EntitySet>
           <AssociationSet Name="FK_DETALLE_FACTURA_PRODUCTO" Association="Self.FK_DETALLE_FACTURA_PRODUCTO">
             <End Role="Factura" EntitySet="Factura" />
             <End Role="detalle_factura_producto" EntitySet="detalle_factura_producto" />
@@ -438,6 +501,22 @@ advertencia 6002: La tabla o vista 'DBTallerCarros.dbo.detalle_producto_proveedo
             <End Role="Cargo" EntitySet="Cargo" />
             <End Role="Empleado" EntitySet="Empleado" />
           </AssociationSet>
+          <AssociationSet Name="FK_FACTURA_REPARACION_F" Association="Self.FK_FACTURA_REPARACION_F">
+            <End Role="Factura" EntitySet="Factura" />
+            <End Role="detalle_factura_reparacion" EntitySet="detalle_factura_reparacion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FACTURA_REPARACION_R" Association="Self.FK_FACTURA_REPARACION_R">
+            <End Role="Reparacion" EntitySet="Reparacion" />
+            <End Role="detalle_factura_reparacion" EntitySet="detalle_factura_reparacion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FACTURA_SERVICIO_F" Association="Self.FK_FACTURA_SERVICIO_F">
+            <End Role="Factura" EntitySet="Factura" />
+            <End Role="detalle_factura_servicio" EntitySet="detalle_factura_servicio" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FACTURA_SERVICIO_S" Association="Self.FK_FACTURA_SERVICIO_S">
+            <End Role="Servicio_adicional" EntitySet="Servicio_adicional" />
+            <End Role="detalle_factura_servicio" EntitySet="detalle_factura_servicio" />
+          </AssociationSet>
           <AssociationSet Name="FK_MODELO_MARCA" Association="Self.FK_MODELO_MARCA">
             <End Role="Marca" EntitySet="Marca" />
             <End Role="Modelo" EntitySet="Modelo" />
@@ -446,33 +525,17 @@ advertencia 6002: La tabla o vista 'DBTallerCarros.dbo.detalle_producto_proveedo
             <End Role="Tipo_producto" EntitySet="Tipo_producto" />
             <End Role="Producto" EntitySet="Producto" />
           </AssociationSet>
-          <AssociationSet Name="FK_REPARACION_EMPLEADO" Association="Self.FK_REPARACION_EMPLEADO">
+          <AssociationSet Name="FK_REPARACION_EMPLEADO_E" Association="Self.FK_REPARACION_EMPLEADO_E">
             <End Role="Empleado" EntitySet="Empleado" />
-            <End Role="Reparacion" EntitySet="Reparacion" />
+            <End Role="detalle_reparacion_empleado" EntitySet="detalle_reparacion_empleado" />
           </AssociationSet>
-          <AssociationSet Name="FK_REPARACION_FACTURA" Association="Self.FK_REPARACION_FACTURA">
-            <End Role="Factura" EntitySet="Factura" />
+          <AssociationSet Name="FK_REPARACION_EMPLEADO_R" Association="Self.FK_REPARACION_EMPLEADO_R">
             <End Role="Reparacion" EntitySet="Reparacion" />
+            <End Role="detalle_reparacion_empleado" EntitySet="detalle_reparacion_empleado" />
           </AssociationSet>
           <AssociationSet Name="FK_REPARACION_TIPO_REPARACION" Association="Self.FK_REPARACION_TIPO_REPARACION">
             <End Role="Tipo_reparacion" EntitySet="Tipo_reparacion" />
             <End Role="Reparacion" EntitySet="Reparacion" />
-          </AssociationSet>
-          <AssociationSet Name="FK_REPARACION_VEHICULO" Association="Self.FK_REPARACION_VEHICULO">
-            <End Role="Vehiculo" EntitySet="Vehiculo" />
-            <End Role="Reparacion" EntitySet="Reparacion" />
-          </AssociationSet>
-          <AssociationSet Name="FK_SERVICIO_EMPLEADO" Association="Self.FK_SERVICIO_EMPLEADO">
-            <End Role="Empleado" EntitySet="Empleado" />
-            <End Role="Servicio_adicional" EntitySet="Servicio_adicional" />
-          </AssociationSet>
-          <AssociationSet Name="FK_SERVICIO_FACTURA" Association="Self.FK_SERVICIO_FACTURA">
-            <End Role="Factura" EntitySet="Factura" />
-            <End Role="Servicio_adicional" EntitySet="Servicio_adicional" />
-          </AssociationSet>
-          <AssociationSet Name="FK_SERVICIO_VEHICULO" Association="Self.FK_SERVICIO_VEHICULO">
-            <End Role="Vehiculo" EntitySet="Vehiculo" />
-            <End Role="Servicio_adicional" EntitySet="Servicio_adicional" />
           </AssociationSet>
           <AssociationSet Name="FK_VEHICULO_CLIENTE" Association="Self.FK_VEHICULO_CLIENTE">
             <End Role="Cliente" EntitySet="Cliente" />
@@ -485,6 +548,22 @@ advertencia 6002: La tabla o vista 'DBTallerCarros.dbo.detalle_producto_proveedo
           <AssociationSet Name="FK_VEHICULO_MODELO" Association="Self.FK_VEHICULO_MODELO">
             <End Role="Modelo" EntitySet="Modelo" />
             <End Role="Vehiculo" EntitySet="Vehiculo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VEHICULO_REPARACION_R" Association="Self.FK_VEHICULO_REPARACION_R">
+            <End Role="Reparacion" EntitySet="Reparacion" />
+            <End Role="detalle_vehiculo_reparacion" EntitySet="detalle_vehiculo_reparacion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VEHICULO_REPARACION_V" Association="Self.FK_VEHICULO_REPARACION_V">
+            <End Role="Vehiculo" EntitySet="Vehiculo" />
+            <End Role="detalle_vehiculo_reparacion" EntitySet="detalle_vehiculo_reparacion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VEHICULO_SERVICIO_S" Association="Self.FK_VEHICULO_SERVICIO_S">
+            <End Role="Servicio_adicional" EntitySet="Servicio_adicional" />
+            <End Role="detalle_vehiculo_servicio" EntitySet="detalle_vehiculo_servicio" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VEHICULO_SERVICIO_V" Association="Self.FK_VEHICULO_SERVICIO_V">
+            <End Role="Vehiculo" EntitySet="Vehiculo" />
+            <End Role="detalle_vehiculo_servicio" EntitySet="detalle_vehiculo_servicio" />
           </AssociationSet>
           <AssociationSet Name="FK_VEHICULO_TIPO_VEHICULO" Association="Self.FK_VEHICULO_TIPO_VEHICULO">
             <End Role="Tipo_Vehiculo" EntitySet="Tipo_Vehiculo" />
@@ -523,6 +602,82 @@ advertencia 6002: La tabla o vista 'DBTallerCarros.dbo.detalle_producto_proveedo
           <Property Name="nombre" Type="String" MaxLength="80" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Vehiculoes" Relationship="Self.FK_VEHICULO_COLOR" FromRole="Color" ToRole="Vehiculo" />
         </EntityType>
+        <EntityType Name="detalle_factura_producto">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_factura" Type="Int32" Nullable="false" />
+          <Property Name="id_producto" Type="Int32" Nullable="false" />
+          <Property Name="cantidad" Type="Int32" Nullable="false" />
+          <Property Name="valorUnitario" Type="Decimal" Precision="19" Scale="4" />
+          <NavigationProperty Name="Factura" Relationship="Self.FK_DETALLE_FACTURA_PRODUCTO" FromRole="detalle_factura_producto" ToRole="Factura" />
+          <NavigationProperty Name="Producto" Relationship="Self.FK_DETALLE_PRODUCTO" FromRole="detalle_factura_producto" ToRole="Producto" />
+        </EntityType>
+        <EntityType Name="detalle_factura_reparacion">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_factura" Type="Int32" Nullable="false" />
+          <Property Name="id_reparacion" Type="Int32" Nullable="false" />
+          <Property Name="costo" Type="Decimal" Precision="19" Scale="4" />
+          <NavigationProperty Name="Factura" Relationship="Self.FK_FACTURA_REPARACION_F" FromRole="detalle_factura_reparacion" ToRole="Factura" />
+          <NavigationProperty Name="Reparacion" Relationship="Self.FK_FACTURA_REPARACION_R" FromRole="detalle_factura_reparacion" ToRole="Reparacion" />
+        </EntityType>
+        <EntityType Name="detalle_factura_servicio">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_servicio" Type="Int32" Nullable="false" />
+          <Property Name="id_factura" Type="Int32" Nullable="false" />
+          <Property Name="precio" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <NavigationProperty Name="Factura" Relationship="Self.FK_FACTURA_SERVICIO_F" FromRole="detalle_factura_servicio" ToRole="Factura" />
+          <NavigationProperty Name="Servicio_adicional" Relationship="Self.FK_FACTURA_SERVICIO_S" FromRole="detalle_factura_servicio" ToRole="Servicio_adicional" />
+        </EntityType>
+        <EntityType Name="detalle_producto_proveedor">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_proveedor" Type="Int32" Nullable="false" />
+          <Property Name="id_producto" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Producto" Relationship="Self.FK_DETALLE_PP_PRODUCTO" FromRole="detalle_producto_proveedor" ToRole="Producto" />
+          <NavigationProperty Name="Proveedor" Relationship="Self.FK_DETALLE_PP_PROVEEDOR" FromRole="detalle_producto_proveedor" ToRole="Proveedor" />
+        </EntityType>
+        <EntityType Name="detalle_reparacion_empleado">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="documento" Type="Int32" Nullable="false" />
+          <Property Name="id_reparacion" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Empleado" Relationship="Self.FK_REPARACION_EMPLEADO_E" FromRole="detalle_reparacion_empleado" ToRole="Empleado" />
+          <NavigationProperty Name="Reparacion" Relationship="Self.FK_REPARACION_EMPLEADO_R" FromRole="detalle_reparacion_empleado" ToRole="Reparacion" />
+        </EntityType>
+        <EntityType Name="detalle_vehiculo_reparacion">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_vehiculo" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="id_reparacion" Type="Int32" Nullable="false" />
+          <Property Name="fecha_reparacion" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="Reparacion" Relationship="Self.FK_VEHICULO_REPARACION_R" FromRole="detalle_vehiculo_reparacion" ToRole="Reparacion" />
+          <NavigationProperty Name="Vehiculo" Relationship="Self.FK_VEHICULO_REPARACION_V" FromRole="detalle_vehiculo_reparacion" ToRole="Vehiculo" />
+        </EntityType>
+        <EntityType Name="detalle_vehiculo_servicio">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_vehiculo" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="id_servicio" Type="Int32" Nullable="false" />
+          <Property Name="fecha_servicio" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="Servicio_adicional" Relationship="Self.FK_VEHICULO_SERVICIO_S" FromRole="detalle_vehiculo_servicio" ToRole="Servicio_adicional" />
+          <NavigationProperty Name="Vehiculo" Relationship="Self.FK_VEHICULO_SERVICIO_V" FromRole="detalle_vehiculo_servicio" ToRole="Vehiculo" />
+        </EntityType>
         <EntityType Name="Empleado">
           <Key>
             <PropertyRef Name="documento" />
@@ -534,8 +689,7 @@ advertencia 6002: La tabla o vista 'DBTallerCarros.dbo.detalle_producto_proveedo
           <Property Name="id_cargo" Type="Int32" Nullable="false" />
           <Property Name="fecha_contratacion" Type="DateTime" Nullable="false" Precision="0" />
           <NavigationProperty Name="Cargo" Relationship="Self.FK_EMPLEADO_CARGO" FromRole="Empleado" ToRole="Cargo" />
-          <NavigationProperty Name="Reparacions" Relationship="Self.FK_REPARACION_EMPLEADO" FromRole="Empleado" ToRole="Reparacion" />
-          <NavigationProperty Name="Servicio_adicional" Relationship="Self.FK_SERVICIO_EMPLEADO" FromRole="Empleado" ToRole="Servicio_adicional" />
+          <NavigationProperty Name="detalle_reparacion_empleado" Relationship="Self.FK_REPARACION_EMPLEADO_E" FromRole="Empleado" ToRole="detalle_reparacion_empleado" />
         </EntityType>
         <EntityType Name="Factura">
           <Key>
@@ -545,8 +699,8 @@ advertencia 6002: La tabla o vista 'DBTallerCarros.dbo.detalle_producto_proveedo
           <Property Name="total" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="fecha" Type="DateTime" Nullable="false" Precision="0" />
           <NavigationProperty Name="detalle_factura_producto" Relationship="Self.FK_DETALLE_FACTURA_PRODUCTO" FromRole="Factura" ToRole="detalle_factura_producto" />
-          <NavigationProperty Name="Reparacions" Relationship="Self.FK_REPARACION_FACTURA" FromRole="Factura" ToRole="Reparacion" />
-          <NavigationProperty Name="Servicio_adicional" Relationship="Self.FK_SERVICIO_FACTURA" FromRole="Factura" ToRole="Servicio_adicional" />
+          <NavigationProperty Name="detalle_factura_reparacion" Relationship="Self.FK_FACTURA_REPARACION_F" FromRole="Factura" ToRole="detalle_factura_reparacion" />
+          <NavigationProperty Name="detalle_factura_servicio" Relationship="Self.FK_FACTURA_SERVICIO_F" FromRole="Factura" ToRole="detalle_factura_servicio" />
         </EntityType>
         <EntityType Name="Marca">
           <Key>
@@ -576,8 +730,8 @@ advertencia 6002: La tabla o vista 'DBTallerCarros.dbo.detalle_producto_proveedo
           <Property Name="descripcion" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="precio" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
           <NavigationProperty Name="detalle_factura_producto" Relationship="Self.FK_DETALLE_PRODUCTO" FromRole="Producto" ToRole="detalle_factura_producto" />
+          <NavigationProperty Name="detalle_producto_proveedor" Relationship="Self.FK_DETALLE_PP_PRODUCTO" FromRole="Producto" ToRole="detalle_producto_proveedor" />
           <NavigationProperty Name="Tipo_producto" Relationship="Self.FK_PRODUCTO_TIPO_PRODUCTO" FromRole="Producto" ToRole="Tipo_producto" />
-          <NavigationProperty Name="Proveedors" Relationship="Self.detalle_producto_proveedor" FromRole="Producto" ToRole="Proveedor" />
         </EntityType>
         <EntityType Name="Proveedor">
           <Key>
@@ -586,7 +740,7 @@ advertencia 6002: La tabla o vista 'DBTallerCarros.dbo.detalle_producto_proveedo
           <Property Name="id_proveedor" Type="Int32" Nullable="false" />
           <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="telefono" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Productoes" Relationship="Self.detalle_producto_proveedor" FromRole="Proveedor" ToRole="Producto" />
+          <NavigationProperty Name="detalle_producto_proveedor" Relationship="Self.FK_DETALLE_PP_PROVEEDOR" FromRole="Proveedor" ToRole="detalle_producto_proveedor" />
         </EntityType>
         <EntityType Name="Reparacion">
           <Key>
@@ -594,16 +748,12 @@ advertencia 6002: La tabla o vista 'DBTallerCarros.dbo.detalle_producto_proveedo
           </Key>
           <Property Name="id_reparacion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="id_tipo_reparacion" Type="Int32" Nullable="false" />
-          <Property Name="descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="fecha_reparacion" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="costo_reparacion" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
-          <Property Name="id_vehiculo" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="documento_empleado" Type="Int32" Nullable="false" />
-          <Property Name="id_factura" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Empleado" Relationship="Self.FK_REPARACION_EMPLEADO" FromRole="Reparacion" ToRole="Empleado" />
-          <NavigationProperty Name="Factura" Relationship="Self.FK_REPARACION_FACTURA" FromRole="Reparacion" ToRole="Factura" />
+          <NavigationProperty Name="detalle_factura_reparacion" Relationship="Self.FK_FACTURA_REPARACION_R" FromRole="Reparacion" ToRole="detalle_factura_reparacion" />
+          <NavigationProperty Name="detalle_reparacion_empleado" Relationship="Self.FK_REPARACION_EMPLEADO_R" FromRole="Reparacion" ToRole="detalle_reparacion_empleado" />
+          <NavigationProperty Name="detalle_vehiculo_reparacion" Relationship="Self.FK_VEHICULO_REPARACION_R" FromRole="Reparacion" ToRole="detalle_vehiculo_reparacion" />
           <NavigationProperty Name="Tipo_reparacion" Relationship="Self.FK_REPARACION_TIPO_REPARACION" FromRole="Reparacion" ToRole="Tipo_reparacion" />
-          <NavigationProperty Name="Vehiculo" Relationship="Self.FK_REPARACION_VEHICULO" FromRole="Reparacion" ToRole="Vehiculo" />
         </EntityType>
         <EntityType Name="Servicio_adicional">
           <Key>
@@ -611,24 +761,9 @@ advertencia 6002: La tabla o vista 'DBTallerCarros.dbo.detalle_producto_proveedo
           </Key>
           <Property Name="id_servicio_adicional" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="descripcion" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="precio" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
-          <Property Name="documento_empleado" Type="Int32" Nullable="false" />
-          <Property Name="id_factura" Type="Int32" Nullable="false" />
-          <Property Name="id_vehiculo" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Empleado" Relationship="Self.FK_SERVICIO_EMPLEADO" FromRole="Servicio_adicional" ToRole="Empleado" />
-          <NavigationProperty Name="Factura" Relationship="Self.FK_SERVICIO_FACTURA" FromRole="Servicio_adicional" ToRole="Factura" />
-          <NavigationProperty Name="Vehiculo" Relationship="Self.FK_SERVICIO_VEHICULO" FromRole="Servicio_adicional" ToRole="Vehiculo" />
-        </EntityType>
-        <EntityType Name="sysdiagram">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="principal_id" Type="Int32" Nullable="false" />
-          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="version" Type="Int32" />
-          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="detalle_factura_servicio" Relationship="Self.FK_FACTURA_SERVICIO_S" FromRole="Servicio_adicional" ToRole="detalle_factura_servicio" />
+          <NavigationProperty Name="detalle_vehiculo_servicio" Relationship="Self.FK_VEHICULO_SERVICIO_S" FromRole="Servicio_adicional" ToRole="detalle_vehiculo_servicio" />
         </EntityType>
         <EntityType Name="Tipo_producto">
           <Key>
@@ -668,22 +803,10 @@ advertencia 6002: La tabla o vista 'DBTallerCarros.dbo.detalle_producto_proveedo
           <Property Name="id_color" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Cliente" Relationship="Self.FK_VEHICULO_CLIENTE" FromRole="Vehiculo" ToRole="Cliente" />
           <NavigationProperty Name="Color" Relationship="Self.FK_VEHICULO_COLOR" FromRole="Vehiculo" ToRole="Color" />
+          <NavigationProperty Name="detalle_vehiculo_reparacion" Relationship="Self.FK_VEHICULO_REPARACION_V" FromRole="Vehiculo" ToRole="detalle_vehiculo_reparacion" />
+          <NavigationProperty Name="detalle_vehiculo_servicio" Relationship="Self.FK_VEHICULO_SERVICIO_V" FromRole="Vehiculo" ToRole="detalle_vehiculo_servicio" />
           <NavigationProperty Name="Modelo" Relationship="Self.FK_VEHICULO_MODELO" FromRole="Vehiculo" ToRole="Modelo" />
-          <NavigationProperty Name="Reparacions" Relationship="Self.FK_REPARACION_VEHICULO" FromRole="Vehiculo" ToRole="Reparacion" />
-          <NavigationProperty Name="Servicio_adicional" Relationship="Self.FK_SERVICIO_VEHICULO" FromRole="Vehiculo" ToRole="Servicio_adicional" />
           <NavigationProperty Name="Tipo_Vehiculo" Relationship="Self.FK_VEHICULO_TIPO_VEHICULO" FromRole="Vehiculo" ToRole="Tipo_Vehiculo" />
-        </EntityType>
-        <EntityType Name="detalle_factura_producto">
-          <Key>
-            <PropertyRef Name="id_factura" />
-            <PropertyRef Name="id_producto" />
-            <PropertyRef Name="cantidad" />
-          </Key>
-          <Property Name="id_factura" Type="Int32" Nullable="false" />
-          <Property Name="id_producto" Type="Int32" Nullable="false" />
-          <Property Name="cantidad" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Factura" Relationship="Self.FK_DETALLE_FACTURA_PRODUCTO" FromRole="detalle_factura_producto" ToRole="Factura" />
-          <NavigationProperty Name="Producto" Relationship="Self.FK_DETALLE_PRODUCTO" FromRole="detalle_factura_producto" ToRole="Producto" />
         </EntityType>
         <Association Name="FK_EMPLEADO_CARGO">
           <End Role="Cargo" Type="Self.Cargo" Multiplicity="1" />
@@ -721,30 +844,6 @@ advertencia 6002: La tabla o vista 'DBTallerCarros.dbo.detalle_producto_proveedo
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_REPARACION_EMPLEADO">
-          <End Role="Empleado" Type="Self.Empleado" Multiplicity="1" />
-          <End Role="Reparacion" Type="Self.Reparacion" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Empleado">
-              <PropertyRef Name="documento" />
-            </Principal>
-            <Dependent Role="Reparacion">
-              <PropertyRef Name="documento_empleado" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_SERVICIO_EMPLEADO">
-          <End Role="Empleado" Type="Self.Empleado" Multiplicity="1" />
-          <End Role="Servicio_adicional" Type="Self.Servicio_adicional" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Empleado">
-              <PropertyRef Name="documento" />
-            </Principal>
-            <Dependent Role="Servicio_adicional">
-              <PropertyRef Name="documento_empleado" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_DETALLE_FACTURA_PRODUCTO">
           <End Role="Factura" Type="Self.Factura" Multiplicity="1" />
           <End Role="detalle_factura_producto" Type="Self.detalle_factura_producto" Multiplicity="*" />
@@ -757,27 +856,159 @@ advertencia 6002: La tabla o vista 'DBTallerCarros.dbo.detalle_producto_proveedo
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_REPARACION_FACTURA">
+        <Association Name="FK_DETALLE_PRODUCTO">
+          <End Role="Producto" Type="Self.Producto" Multiplicity="1" />
+          <End Role="detalle_factura_producto" Type="Self.detalle_factura_producto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Producto">
+              <PropertyRef Name="id_producto" />
+            </Principal>
+            <Dependent Role="detalle_factura_producto">
+              <PropertyRef Name="id_producto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FACTURA_REPARACION_F">
           <End Role="Factura" Type="Self.Factura" Multiplicity="1" />
-          <End Role="Reparacion" Type="Self.Reparacion" Multiplicity="*" />
+          <End Role="detalle_factura_reparacion" Type="Self.detalle_factura_reparacion" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Factura">
               <PropertyRef Name="id_factura" />
             </Principal>
-            <Dependent Role="Reparacion">
+            <Dependent Role="detalle_factura_reparacion">
               <PropertyRef Name="id_factura" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_SERVICIO_FACTURA">
+        <Association Name="FK_FACTURA_REPARACION_R">
+          <End Role="Reparacion" Type="Self.Reparacion" Multiplicity="1" />
+          <End Role="detalle_factura_reparacion" Type="Self.detalle_factura_reparacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Reparacion">
+              <PropertyRef Name="id_reparacion" />
+            </Principal>
+            <Dependent Role="detalle_factura_reparacion">
+              <PropertyRef Name="id_reparacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FACTURA_SERVICIO_F">
           <End Role="Factura" Type="Self.Factura" Multiplicity="1" />
-          <End Role="Servicio_adicional" Type="Self.Servicio_adicional" Multiplicity="*" />
+          <End Role="detalle_factura_servicio" Type="Self.detalle_factura_servicio" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Factura">
               <PropertyRef Name="id_factura" />
             </Principal>
-            <Dependent Role="Servicio_adicional">
+            <Dependent Role="detalle_factura_servicio">
               <PropertyRef Name="id_factura" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FACTURA_SERVICIO_S">
+          <End Role="Servicio_adicional" Type="Self.Servicio_adicional" Multiplicity="1" />
+          <End Role="detalle_factura_servicio" Type="Self.detalle_factura_servicio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Servicio_adicional">
+              <PropertyRef Name="id_servicio_adicional" />
+            </Principal>
+            <Dependent Role="detalle_factura_servicio">
+              <PropertyRef Name="id_servicio" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DETALLE_PP_PRODUCTO">
+          <End Role="Producto" Type="Self.Producto" Multiplicity="1" />
+          <End Role="detalle_producto_proveedor" Type="Self.detalle_producto_proveedor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Producto">
+              <PropertyRef Name="id_producto" />
+            </Principal>
+            <Dependent Role="detalle_producto_proveedor">
+              <PropertyRef Name="id_producto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DETALLE_PP_PROVEEDOR">
+          <End Role="Proveedor" Type="Self.Proveedor" Multiplicity="1" />
+          <End Role="detalle_producto_proveedor" Type="Self.detalle_producto_proveedor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Proveedor">
+              <PropertyRef Name="id_proveedor" />
+            </Principal>
+            <Dependent Role="detalle_producto_proveedor">
+              <PropertyRef Name="id_proveedor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_REPARACION_EMPLEADO_E">
+          <End Role="Empleado" Type="Self.Empleado" Multiplicity="1" />
+          <End Role="detalle_reparacion_empleado" Type="Self.detalle_reparacion_empleado" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleado">
+              <PropertyRef Name="documento" />
+            </Principal>
+            <Dependent Role="detalle_reparacion_empleado">
+              <PropertyRef Name="documento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_REPARACION_EMPLEADO_R">
+          <End Role="Reparacion" Type="Self.Reparacion" Multiplicity="1" />
+          <End Role="detalle_reparacion_empleado" Type="Self.detalle_reparacion_empleado" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Reparacion">
+              <PropertyRef Name="id_reparacion" />
+            </Principal>
+            <Dependent Role="detalle_reparacion_empleado">
+              <PropertyRef Name="id_reparacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VEHICULO_REPARACION_R">
+          <End Role="Reparacion" Type="Self.Reparacion" Multiplicity="1" />
+          <End Role="detalle_vehiculo_reparacion" Type="Self.detalle_vehiculo_reparacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Reparacion">
+              <PropertyRef Name="id_reparacion" />
+            </Principal>
+            <Dependent Role="detalle_vehiculo_reparacion">
+              <PropertyRef Name="id_reparacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VEHICULO_REPARACION_V">
+          <End Role="Vehiculo" Type="Self.Vehiculo" Multiplicity="0..1" />
+          <End Role="detalle_vehiculo_reparacion" Type="Self.detalle_vehiculo_reparacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Vehiculo">
+              <PropertyRef Name="id_vehiculo" />
+            </Principal>
+            <Dependent Role="detalle_vehiculo_reparacion">
+              <PropertyRef Name="id_vehiculo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VEHICULO_SERVICIO_S">
+          <End Role="Servicio_adicional" Type="Self.Servicio_adicional" Multiplicity="1" />
+          <End Role="detalle_vehiculo_servicio" Type="Self.detalle_vehiculo_servicio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Servicio_adicional">
+              <PropertyRef Name="id_servicio_adicional" />
+            </Principal>
+            <Dependent Role="detalle_vehiculo_servicio">
+              <PropertyRef Name="id_servicio" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VEHICULO_SERVICIO_V">
+          <End Role="Vehiculo" Type="Self.Vehiculo" Multiplicity="0..1" />
+          <End Role="detalle_vehiculo_servicio" Type="Self.detalle_vehiculo_servicio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Vehiculo">
+              <PropertyRef Name="id_vehiculo" />
+            </Principal>
+            <Dependent Role="detalle_vehiculo_servicio">
+              <PropertyRef Name="id_vehiculo" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -805,18 +1036,6 @@ advertencia 6002: La tabla o vista 'DBTallerCarros.dbo.detalle_producto_proveedo
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_DETALLE_PRODUCTO">
-          <End Role="Producto" Type="Self.Producto" Multiplicity="1" />
-          <End Role="detalle_factura_producto" Type="Self.detalle_factura_producto" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Producto">
-              <PropertyRef Name="id_producto" />
-            </Principal>
-            <Dependent Role="detalle_factura_producto">
-              <PropertyRef Name="id_producto" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_PRODUCTO_TIPO_PRODUCTO">
           <End Role="Tipo_producto" Type="Self.Tipo_producto" Multiplicity="1" />
           <End Role="Producto" Type="Self.Producto" Multiplicity="*" />
@@ -841,30 +1060,6 @@ advertencia 6002: La tabla o vista 'DBTallerCarros.dbo.detalle_producto_proveedo
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_REPARACION_VEHICULO">
-          <End Role="Vehiculo" Type="Self.Vehiculo" Multiplicity="1" />
-          <End Role="Reparacion" Type="Self.Reparacion" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Vehiculo">
-              <PropertyRef Name="id_vehiculo" />
-            </Principal>
-            <Dependent Role="Reparacion">
-              <PropertyRef Name="id_vehiculo" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_SERVICIO_VEHICULO">
-          <End Role="Vehiculo" Type="Self.Vehiculo" Multiplicity="1" />
-          <End Role="Servicio_adicional" Type="Self.Servicio_adicional" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Vehiculo">
-              <PropertyRef Name="id_vehiculo" />
-            </Principal>
-            <Dependent Role="Servicio_adicional">
-              <PropertyRef Name="id_vehiculo" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_VEHICULO_TIPO_VEHICULO">
           <End Role="Tipo_Vehiculo" Type="Self.Tipo_Vehiculo" Multiplicity="1" />
           <End Role="Vehiculo" Type="Self.Vehiculo" Multiplicity="*" />
@@ -877,14 +1072,17 @@ advertencia 6002: La tabla o vista 'DBTallerCarros.dbo.detalle_producto_proveedo
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="detalle_producto_proveedor">
-          <End Role="Producto" Type="Self.Producto" Multiplicity="*" />
-          <End Role="Proveedor" Type="Self.Proveedor" Multiplicity="*" />
-        </Association>
         <EntityContainer Name="DBTallerCarrosEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Cargoes" EntityType="Self.Cargo" />
           <EntitySet Name="Clientes" EntityType="Self.Cliente" />
           <EntitySet Name="Colors" EntityType="Self.Color" />
+          <EntitySet Name="detalle_factura_producto" EntityType="Self.detalle_factura_producto" />
+          <EntitySet Name="detalle_factura_reparacion" EntityType="Self.detalle_factura_reparacion" />
+          <EntitySet Name="detalle_factura_servicio" EntityType="Self.detalle_factura_servicio" />
+          <EntitySet Name="detalle_producto_proveedor" EntityType="Self.detalle_producto_proveedor" />
+          <EntitySet Name="detalle_reparacion_empleado" EntityType="Self.detalle_reparacion_empleado" />
+          <EntitySet Name="detalle_vehiculo_reparacion" EntityType="Self.detalle_vehiculo_reparacion" />
+          <EntitySet Name="detalle_vehiculo_servicio" EntityType="Self.detalle_vehiculo_servicio" />
           <EntitySet Name="Empleadoes" EntityType="Self.Empleado" />
           <EntitySet Name="Facturas" EntityType="Self.Factura" />
           <EntitySet Name="Marcas" EntityType="Self.Marca" />
@@ -893,12 +1091,10 @@ advertencia 6002: La tabla o vista 'DBTallerCarros.dbo.detalle_producto_proveedo
           <EntitySet Name="Proveedors" EntityType="Self.Proveedor" />
           <EntitySet Name="Reparacions" EntityType="Self.Reparacion" />
           <EntitySet Name="Servicio_adicional" EntityType="Self.Servicio_adicional" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
           <EntitySet Name="Tipo_producto" EntityType="Self.Tipo_producto" />
           <EntitySet Name="Tipo_reparacion" EntityType="Self.Tipo_reparacion" />
           <EntitySet Name="Tipo_Vehiculo" EntityType="Self.Tipo_Vehiculo" />
           <EntitySet Name="Vehiculoes" EntityType="Self.Vehiculo" />
-          <EntitySet Name="detalle_factura_producto" EntityType="Self.detalle_factura_producto" />
           <AssociationSet Name="FK_EMPLEADO_CARGO" Association="Self.FK_EMPLEADO_CARGO">
             <End Role="Cargo" EntitySet="Cargoes" />
             <End Role="Empleado" EntitySet="Empleadoes" />
@@ -911,25 +1107,61 @@ advertencia 6002: La tabla o vista 'DBTallerCarros.dbo.detalle_producto_proveedo
             <End Role="Color" EntitySet="Colors" />
             <End Role="Vehiculo" EntitySet="Vehiculoes" />
           </AssociationSet>
-          <AssociationSet Name="FK_REPARACION_EMPLEADO" Association="Self.FK_REPARACION_EMPLEADO">
-            <End Role="Empleado" EntitySet="Empleadoes" />
-            <End Role="Reparacion" EntitySet="Reparacions" />
-          </AssociationSet>
-          <AssociationSet Name="FK_SERVICIO_EMPLEADO" Association="Self.FK_SERVICIO_EMPLEADO">
-            <End Role="Empleado" EntitySet="Empleadoes" />
-            <End Role="Servicio_adicional" EntitySet="Servicio_adicional" />
-          </AssociationSet>
           <AssociationSet Name="FK_DETALLE_FACTURA_PRODUCTO" Association="Self.FK_DETALLE_FACTURA_PRODUCTO">
             <End Role="Factura" EntitySet="Facturas" />
             <End Role="detalle_factura_producto" EntitySet="detalle_factura_producto" />
           </AssociationSet>
-          <AssociationSet Name="FK_REPARACION_FACTURA" Association="Self.FK_REPARACION_FACTURA">
-            <End Role="Factura" EntitySet="Facturas" />
-            <End Role="Reparacion" EntitySet="Reparacions" />
+          <AssociationSet Name="FK_DETALLE_PRODUCTO" Association="Self.FK_DETALLE_PRODUCTO">
+            <End Role="Producto" EntitySet="Productoes" />
+            <End Role="detalle_factura_producto" EntitySet="detalle_factura_producto" />
           </AssociationSet>
-          <AssociationSet Name="FK_SERVICIO_FACTURA" Association="Self.FK_SERVICIO_FACTURA">
+          <AssociationSet Name="FK_FACTURA_REPARACION_F" Association="Self.FK_FACTURA_REPARACION_F">
             <End Role="Factura" EntitySet="Facturas" />
+            <End Role="detalle_factura_reparacion" EntitySet="detalle_factura_reparacion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FACTURA_REPARACION_R" Association="Self.FK_FACTURA_REPARACION_R">
+            <End Role="Reparacion" EntitySet="Reparacions" />
+            <End Role="detalle_factura_reparacion" EntitySet="detalle_factura_reparacion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FACTURA_SERVICIO_F" Association="Self.FK_FACTURA_SERVICIO_F">
+            <End Role="Factura" EntitySet="Facturas" />
+            <End Role="detalle_factura_servicio" EntitySet="detalle_factura_servicio" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FACTURA_SERVICIO_S" Association="Self.FK_FACTURA_SERVICIO_S">
             <End Role="Servicio_adicional" EntitySet="Servicio_adicional" />
+            <End Role="detalle_factura_servicio" EntitySet="detalle_factura_servicio" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DETALLE_PP_PRODUCTO" Association="Self.FK_DETALLE_PP_PRODUCTO">
+            <End Role="Producto" EntitySet="Productoes" />
+            <End Role="detalle_producto_proveedor" EntitySet="detalle_producto_proveedor" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DETALLE_PP_PROVEEDOR" Association="Self.FK_DETALLE_PP_PROVEEDOR">
+            <End Role="Proveedor" EntitySet="Proveedors" />
+            <End Role="detalle_producto_proveedor" EntitySet="detalle_producto_proveedor" />
+          </AssociationSet>
+          <AssociationSet Name="FK_REPARACION_EMPLEADO_E" Association="Self.FK_REPARACION_EMPLEADO_E">
+            <End Role="Empleado" EntitySet="Empleadoes" />
+            <End Role="detalle_reparacion_empleado" EntitySet="detalle_reparacion_empleado" />
+          </AssociationSet>
+          <AssociationSet Name="FK_REPARACION_EMPLEADO_R" Association="Self.FK_REPARACION_EMPLEADO_R">
+            <End Role="Reparacion" EntitySet="Reparacions" />
+            <End Role="detalle_reparacion_empleado" EntitySet="detalle_reparacion_empleado" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VEHICULO_REPARACION_R" Association="Self.FK_VEHICULO_REPARACION_R">
+            <End Role="Reparacion" EntitySet="Reparacions" />
+            <End Role="detalle_vehiculo_reparacion" EntitySet="detalle_vehiculo_reparacion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VEHICULO_REPARACION_V" Association="Self.FK_VEHICULO_REPARACION_V">
+            <End Role="Vehiculo" EntitySet="Vehiculoes" />
+            <End Role="detalle_vehiculo_reparacion" EntitySet="detalle_vehiculo_reparacion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VEHICULO_SERVICIO_S" Association="Self.FK_VEHICULO_SERVICIO_S">
+            <End Role="Servicio_adicional" EntitySet="Servicio_adicional" />
+            <End Role="detalle_vehiculo_servicio" EntitySet="detalle_vehiculo_servicio" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VEHICULO_SERVICIO_V" Association="Self.FK_VEHICULO_SERVICIO_V">
+            <End Role="Vehiculo" EntitySet="Vehiculoes" />
+            <End Role="detalle_vehiculo_servicio" EntitySet="detalle_vehiculo_servicio" />
           </AssociationSet>
           <AssociationSet Name="FK_MODELO_MARCA" Association="Self.FK_MODELO_MARCA">
             <End Role="Marca" EntitySet="Marcas" />
@@ -939,10 +1171,6 @@ advertencia 6002: La tabla o vista 'DBTallerCarros.dbo.detalle_producto_proveedo
             <End Role="Modelo" EntitySet="Modeloes" />
             <End Role="Vehiculo" EntitySet="Vehiculoes" />
           </AssociationSet>
-          <AssociationSet Name="FK_DETALLE_PRODUCTO" Association="Self.FK_DETALLE_PRODUCTO">
-            <End Role="Producto" EntitySet="Productoes" />
-            <End Role="detalle_factura_producto" EntitySet="detalle_factura_producto" />
-          </AssociationSet>
           <AssociationSet Name="FK_PRODUCTO_TIPO_PRODUCTO" Association="Self.FK_PRODUCTO_TIPO_PRODUCTO">
             <End Role="Tipo_producto" EntitySet="Tipo_producto" />
             <End Role="Producto" EntitySet="Productoes" />
@@ -951,21 +1179,9 @@ advertencia 6002: La tabla o vista 'DBTallerCarros.dbo.detalle_producto_proveedo
             <End Role="Tipo_reparacion" EntitySet="Tipo_reparacion" />
             <End Role="Reparacion" EntitySet="Reparacions" />
           </AssociationSet>
-          <AssociationSet Name="FK_REPARACION_VEHICULO" Association="Self.FK_REPARACION_VEHICULO">
-            <End Role="Vehiculo" EntitySet="Vehiculoes" />
-            <End Role="Reparacion" EntitySet="Reparacions" />
-          </AssociationSet>
-          <AssociationSet Name="FK_SERVICIO_VEHICULO" Association="Self.FK_SERVICIO_VEHICULO">
-            <End Role="Vehiculo" EntitySet="Vehiculoes" />
-            <End Role="Servicio_adicional" EntitySet="Servicio_adicional" />
-          </AssociationSet>
           <AssociationSet Name="FK_VEHICULO_TIPO_VEHICULO" Association="Self.FK_VEHICULO_TIPO_VEHICULO">
             <End Role="Tipo_Vehiculo" EntitySet="Tipo_Vehiculo" />
             <End Role="Vehiculo" EntitySet="Vehiculoes" />
-          </AssociationSet>
-          <AssociationSet Name="detalle_producto_proveedor" Association="Self.detalle_producto_proveedor">
-            <End Role="Producto" EntitySet="Productoes" />
-            <End Role="Proveedor" EntitySet="Proveedors" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -998,6 +1214,75 @@ advertencia 6002: La tabla o vista 'DBTallerCarros.dbo.detalle_producto_proveedo
               <MappingFragment StoreEntitySet="Color">
                 <ScalarProperty Name="id_color" ColumnName="id_color" />
                 <ScalarProperty Name="nombre" ColumnName="nombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="detalle_factura_producto">
+            <EntityTypeMapping TypeName="DBTallerCarrosModel.detalle_factura_producto">
+              <MappingFragment StoreEntitySet="detalle_factura_producto">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="id_factura" ColumnName="id_factura" />
+                <ScalarProperty Name="id_producto" ColumnName="id_producto" />
+                <ScalarProperty Name="cantidad" ColumnName="cantidad" />
+                <ScalarProperty Name="valorUnitario" ColumnName="valorUnitario" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="detalle_factura_reparacion">
+            <EntityTypeMapping TypeName="DBTallerCarrosModel.detalle_factura_reparacion">
+              <MappingFragment StoreEntitySet="detalle_factura_reparacion">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="id_factura" ColumnName="id_factura" />
+                <ScalarProperty Name="id_reparacion" ColumnName="id_reparacion" />
+                <ScalarProperty Name="costo" ColumnName="costo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="detalle_factura_servicio">
+            <EntityTypeMapping TypeName="DBTallerCarrosModel.detalle_factura_servicio">
+              <MappingFragment StoreEntitySet="detalle_factura_servicio">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="id_servicio" ColumnName="id_servicio" />
+                <ScalarProperty Name="id_factura" ColumnName="id_factura" />
+                <ScalarProperty Name="precio" ColumnName="precio" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="detalle_producto_proveedor">
+            <EntityTypeMapping TypeName="DBTallerCarrosModel.detalle_producto_proveedor">
+              <MappingFragment StoreEntitySet="detalle_producto_proveedor">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="id_proveedor" ColumnName="id_proveedor" />
+                <ScalarProperty Name="id_producto" ColumnName="id_producto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="detalle_reparacion_empleado">
+            <EntityTypeMapping TypeName="DBTallerCarrosModel.detalle_reparacion_empleado">
+              <MappingFragment StoreEntitySet="detalle_reparacion_empleado">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="documento" ColumnName="documento" />
+                <ScalarProperty Name="id_reparacion" ColumnName="id_reparacion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="detalle_vehiculo_reparacion">
+            <EntityTypeMapping TypeName="DBTallerCarrosModel.detalle_vehiculo_reparacion">
+              <MappingFragment StoreEntitySet="detalle_vehiculo_reparacion">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="id_vehiculo" ColumnName="id_vehiculo" />
+                <ScalarProperty Name="id_reparacion" ColumnName="id_reparacion" />
+                <ScalarProperty Name="fecha_reparacion" ColumnName="fecha_reparacion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="detalle_vehiculo_servicio">
+            <EntityTypeMapping TypeName="DBTallerCarrosModel.detalle_vehiculo_servicio">
+              <MappingFragment StoreEntitySet="detalle_vehiculo_servicio">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="id_vehiculo" ColumnName="id_vehiculo" />
+                <ScalarProperty Name="id_servicio" ColumnName="id_servicio" />
+                <ScalarProperty Name="fecha_servicio" ColumnName="fecha_servicio" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1064,12 +1349,8 @@ advertencia 6002: La tabla o vista 'DBTallerCarros.dbo.detalle_producto_proveedo
               <MappingFragment StoreEntitySet="Reparacion">
                 <ScalarProperty Name="id_reparacion" ColumnName="id_reparacion" />
                 <ScalarProperty Name="id_tipo_reparacion" ColumnName="id_tipo_reparacion" />
-                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
-                <ScalarProperty Name="fecha_reparacion" ColumnName="fecha_reparacion" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
                 <ScalarProperty Name="costo_reparacion" ColumnName="costo_reparacion" />
-                <ScalarProperty Name="id_vehiculo" ColumnName="id_vehiculo" />
-                <ScalarProperty Name="documento_empleado" ColumnName="documento_empleado" />
-                <ScalarProperty Name="id_factura" ColumnName="id_factura" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1078,22 +1359,7 @@ advertencia 6002: La tabla o vista 'DBTallerCarros.dbo.detalle_producto_proveedo
               <MappingFragment StoreEntitySet="Servicio_adicional">
                 <ScalarProperty Name="id_servicio_adicional" ColumnName="id_servicio_adicional" />
                 <ScalarProperty Name="nombre" ColumnName="nombre" />
-                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
                 <ScalarProperty Name="precio" ColumnName="precio" />
-                <ScalarProperty Name="documento_empleado" ColumnName="documento_empleado" />
-                <ScalarProperty Name="id_factura" ColumnName="id_factura" />
-                <ScalarProperty Name="id_vehiculo" ColumnName="id_vehiculo" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="DBTallerCarrosModel.sysdiagram">
-              <MappingFragment StoreEntitySet="sysdiagrams">
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
-                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
-                <ScalarProperty Name="version" ColumnName="version" />
-                <ScalarProperty Name="definition" ColumnName="definition" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1135,23 +1401,6 @@ advertencia 6002: La tabla o vista 'DBTallerCarros.dbo.detalle_producto_proveedo
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="detalle_factura_producto">
-            <EntityTypeMapping TypeName="DBTallerCarrosModel.detalle_factura_producto">
-              <MappingFragment StoreEntitySet="detalle_factura_producto">
-                <ScalarProperty Name="id_factura" ColumnName="id_factura" />
-                <ScalarProperty Name="id_producto" ColumnName="id_producto" />
-                <ScalarProperty Name="cantidad" ColumnName="cantidad" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <AssociationSetMapping Name="detalle_producto_proveedor" TypeName="DBTallerCarrosModel.detalle_producto_proveedor" StoreEntitySet="detalle_producto_proveedor">
-            <EndProperty Name="Producto">
-              <ScalarProperty Name="id_producto" ColumnName="id_producto" />
-            </EndProperty>
-            <EndProperty Name="Proveedor">
-              <ScalarProperty Name="id_proveedor" ColumnName="id_proveedor" />
-            </EndProperty>
-          </AssociationSetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

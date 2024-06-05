@@ -11,6 +11,7 @@ namespace Taller_Carros
         {
             // New code
             config.EnableCors();
+            config.MapHttpAttributeRoutes();
 
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",

@@ -14,16 +14,20 @@ namespace Taller_Carros.Models
     
     public partial class Servicio_adicional
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Servicio_adicional()
+        {
+            this.detalle_factura_servicio = new HashSet<detalle_factura_servicio>();
+            this.detalle_vehiculo_servicio = new HashSet<detalle_vehiculo_servicio>();
+        }
+    
         public int id_servicio_adicional { get; set; }
         public string nombre { get; set; }
-        public string descripcion { get; set; }
         public decimal precio { get; set; }
-        public int documento_empleado { get; set; }
-        public int id_factura { get; set; }
-        public string id_vehiculo { get; set; }
     
-        public virtual Empleado Empleado { get; set; }
-        public virtual Factura Factura { get; set; }
-        public virtual Vehiculo Vehiculo { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<detalle_factura_servicio> detalle_factura_servicio { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<detalle_vehiculo_servicio> detalle_vehiculo_servicio { get; set; }
     }
 }

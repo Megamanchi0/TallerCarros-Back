@@ -12,18 +12,13 @@ namespace Taller_Carros.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Tipo_Vehiculo
+    public partial class detalle_producto_proveedor
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Tipo_Vehiculo()
-        {
-            this.Vehiculoes = new HashSet<Vehiculo>();
-        }
+        public int id { get; set; }
+        public int id_proveedor { get; set; }
+        public int id_producto { get; set; }
     
-        public int id_tipo_vehiculo { get; set; }
-        public string nombre { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Vehiculo> Vehiculoes { get; set; }
+        public virtual Producto Producto { get; set; }
+        public virtual Proveedor Proveedor { get; set; }
     }
 }

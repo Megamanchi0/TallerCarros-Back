@@ -11,13 +11,24 @@ using System.Web.Http.Cors;
 namespace Taller_Carros.Controllers
 {
     [EnableCors(origins: "http://localhost:50247", headers: "*", methods: "*")]
+    [RoutePrefix("api/Reparaciones")]
     public class ReparacionesController : ApiController
     {
-        public IQueryable Get()
+        [HttpGet]
+        [Route("LlenarCombo")]
+        public IQueryable LlenarCombo(int idTipoReparacion)
         {
             clsReparacion _reparacion = new clsReparacion();
-            IQueryable objeto = _reparacion.ConsultarTodos();
-            return objeto;
+            return _reparacion.LlenarCombo(idTipoReparacion);
+        }
+
+        [HttpPost]
+        [Route("GrabarVehiculoReparacion")]
+        public string GrabarVehiculoReparacion(detalle_vehiculo_reparacion vehiculo_Reparacion)
+        {
+            clsReparacion _reparacion = new clsReparacion();
+            _reparacion.vehiculo_Reparacion = vehiculo_Reparacion;
+            return _reparacion.GrabarVehiculoReparacion();
         }
 
         public Reparacion Get(int id)
@@ -26,12 +37,12 @@ namespace Taller_Carros.Controllers
             return _reparacion.Consultar(id);
         }
 
-        public string Post([FromBody] Reparacion reparacion)
-        {
-            clsReparacion _reparacion = new clsReparacion();
-            _reparacion.reparacion = reparacion;
-            return _reparacion.Insertar();
-        }
+        //public string Post([FromBody] Reparacion reparacion)
+        //{
+        //    clsReparacion _reparacion = new clsReparacion();
+        //    _reparacion.reparacion = reparacion;
+        //    return _reparacion.Insertar();
+        //}
 
         public string Put([FromBody] Reparacion reparacion)
         {

@@ -13,23 +13,39 @@ namespace Taller_Carros.Clases
     {
         private DBTallerCarrosEntities taller = new DBTallerCarrosEntities();
         public Reparacion reparacion { get; set; }
+        public detalle_vehiculo_reparacion vehiculo_Reparacion { get; set; }
 
-        public string Insertar()
+        //public string Insertar()
+        //{
+        //    try
+        //    {
+        //        Vehiculo vehiculo = taller.Vehiculoes.Find(reparacion.id_vehiculo);
+        //        if (vehiculo!=null)
+        //        {
+        //            taller.Reparacions.Add(reparacion);
+        //            taller.SaveChanges();
+        //            return "Reparación agregada número: " + reparacion.id_reparacion;
+        //        }
+        //        else
+        //        {
+        //            return "El vehículo con placas '"+reparacion.id_vehiculo+"' no se encuentra registrado";
+        //        }
+                
+        //    }
+        //    catch (Exception ex)
+        //    {
+
+        //        return ex.Message;
+        //    }
+        //}
+
+        public string GrabarVehiculoReparacion()
         {
             try
             {
-                Vehiculo vehiculo = taller.Vehiculoes.Find(reparacion.id_vehiculo);
-                if (vehiculo!=null)
-                {
-                    taller.Reparacions.Add(reparacion);
-                    taller.SaveChanges();
-                    return "Reparación agregada número: " + reparacion.id_reparacion;
-                }
-                else
-                {
-                    return "El vehículo con placas '"+reparacion.id_vehiculo+"' no se encuentra registrado";
-                }
-                
+                taller.detalle_vehiculo_reparacion.Add(vehiculo_Reparacion);
+                taller.SaveChanges();
+                return "Detalle vehículo-reparación agregado exitosamente";
             }
             catch (Exception ex)
             {
@@ -74,20 +90,31 @@ namespace Taller_Carros.Clases
             }
         }
 
-        public IQueryable ConsultarTodos()
+        //public IQueryable ConsultarTodos()
+        //{
+        //    return from TR in taller.Set<Tipo_reparacion>()
+        //           join R in taller.Set<Reparacion>()
+        //           on TR.id_tipo_reparacion equals R.id_tipo_reparacion
+        //           orderby R.fecha_reparacion
+        //           select new
+        //           {
+        //               id_reparacion = R.id_reparacion,
+        //               tipo_reparacion = TR.nombre,
+        //               descripcion = R.descripcion,
+        //               fecha_reparacion = R.fecha_reparacion,
+        //               costo_reparacion = R.costo_reparacion,
+        //               id_vehiculo = R.id_vehiculo
+        //           };
+        //}
+
+        public IQueryable LlenarCombo(int idTipoReparacion)
         {
-            return from TR in taller.Set<Tipo_reparacion>()
-                   join R in taller.Set<Reparacion>()
-                   on TR.id_tipo_reparacion equals R.id_tipo_reparacion
-                   orderby R.fecha_reparacion
+            return from R in taller.Set<Reparacion>()
+                   where R.id_tipo_reparacion == idTipoReparacion
                    select new
                    {
-                       id_reparacion = R.id_reparacion,
-                       tipo_reparacion = TR.nombre,
-                       descripcion = R.descripcion,
-                       fecha_reparacion = R.fecha_reparacion,
-                       costo_reparacion = R.costo_reparacion,
-                       id_vehiculo = R.id_vehiculo
+                       Codigo = R.id_reparacion + "|" + R.costo_reparacion,
+                       Nombre = R.nombre
                    };
         }
     }

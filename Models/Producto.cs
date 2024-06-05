@@ -18,7 +18,7 @@ namespace Taller_Carros.Models
         public Producto()
         {
             this.detalle_factura_producto = new HashSet<detalle_factura_producto>();
-            this.Proveedors = new HashSet<Proveedor>();
+            this.detalle_producto_proveedor = new HashSet<detalle_producto_proveedor>();
         }
     
         public int id_producto { get; set; }
@@ -29,8 +29,8 @@ namespace Taller_Carros.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<detalle_factura_producto> detalle_factura_producto { get; set; }
-        public virtual Tipo_producto Tipo_producto { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Proveedor> Proveedors { get; set; }
+        public virtual ICollection<detalle_producto_proveedor> detalle_producto_proveedor { get; set; }
+        public virtual Tipo_producto Tipo_producto { get; set; }
     }
 }

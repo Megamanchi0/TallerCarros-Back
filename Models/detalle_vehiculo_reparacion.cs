@@ -12,12 +12,14 @@ namespace Taller_Carros.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class sysdiagram
+    public partial class detalle_vehiculo_reparacion
     {
-        public string name { get; set; }
-        public int principal_id { get; set; }
-        public int diagram_id { get; set; }
-        public Nullable<int> version { get; set; }
-        public byte[] definition { get; set; }
+        public int id { get; set; }
+        public string id_vehiculo { get; set; }
+        public int id_reparacion { get; set; }
+        public System.DateTime fecha_reparacion { get; set; }
+    
+        public virtual Reparacion Reparacion { get; set; }
+        public virtual Vehiculo Vehiculo { get; set; }
     }
 }

@@ -183,18 +183,26 @@
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Clases\clsCargo.cs" />
     <Compile Include="Clases\clsEmpleado.cs" />
+    <Compile Include="Clases\clsFacturacion.cs" />
     <Compile Include="Clases\clsMarca.cs" />
     <Compile Include="Clases\clsModelo.cs" />
+    <Compile Include="Clases\clsProducto.cs" />
     <Compile Include="Clases\clsReparacion.cs" />
+    <Compile Include="Clases\clsTipoProducto.cs" />
     <Compile Include="Clases\clsTipoReparacion.cs" />
     <Compile Include="Clases\clsTipoVehuculo.cs" />
     <Compile Include="Clases\clsVehiculo.cs" />
+    <Compile Include="Clases\clsServicioAdicional.cs" />
     <Compile Include="Controllers\CargosController.cs" />
     <Compile Include="Controllers\EmpleadosController.cs" />
+    <Compile Include="Controllers\FacturacionController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MarcasController.cs" />
     <Compile Include="Controllers\ModelosController.cs" />
+    <Compile Include="Controllers\ProductosController.cs" />
     <Compile Include="Controllers\ReparacionesController.cs" />
+    <Compile Include="Controllers\ServiciosAdicionalesController.cs" />
+    <Compile Include="Controllers\TipoProductosController.cs" />
     <Compile Include="Controllers\TipoReparacionesController.cs" />
     <Compile Include="Controllers\TipoVehiculosController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
@@ -212,6 +220,24 @@
       <DependentUpon>TallerCarros.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\detalle_factura_producto.cs">
+      <DependentUpon>TallerCarros.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\detalle_factura_reparacion.cs">
+      <DependentUpon>TallerCarros.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\detalle_factura_servicio.cs">
+      <DependentUpon>TallerCarros.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\detalle_producto_proveedor.cs">
+      <DependentUpon>TallerCarros.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\detalle_reparacion_empleado.cs">
+      <DependentUpon>TallerCarros.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\detalle_vehiculo_reparacion.cs">
+      <DependentUpon>TallerCarros.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\detalle_vehiculo_servicio.cs">
       <DependentUpon>TallerCarros.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Empleado.cs">
@@ -238,18 +264,15 @@
     <Compile Include="Models\Servicio_adicional.cs">
       <DependentUpon>TallerCarros.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\sysdiagram.cs">
-      <DependentUpon>TallerCarros.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\TallerCarros.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>TallerCarros.Context.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\TallerCarros.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
       <DependentUpon>TallerCarros.tt</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
     </Compile>
     <Compile Include="Models\TallerCarros.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -292,13 +315,13 @@
     <Content Include="Global.asax" />
     <Content Include="Models\TallerCarros.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>TallerCarros.Context.cs</LastGenOutput>
       <DependentUpon>TallerCarros.edmx</DependentUpon>
+      <LastGenOutput>TallerCarros.Context.cs</LastGenOutput>
     </Content>
     <Content Include="Models\TallerCarros.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>TallerCarros.edmx</DependentUpon>
       <LastGenOutput>TallerCarros.cs</LastGenOutput>
+      <DependentUpon>TallerCarros.edmx</DependentUpon>
     </Content>
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />

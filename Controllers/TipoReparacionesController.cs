@@ -13,10 +13,10 @@ namespace Taller_Carros.Controllers
     [EnableCors(origins: "http://localhost:50247", headers: "*", methods: "*")]
     public class TipoReparacionesController : ApiController
     {
-        public List<Tipo_reparacion> Get()
+        public IQueryable Get()
         {
-            clsTipoReparacion _tipoReparacion = new clsTipoReparacion();
-            return _tipoReparacion.consultarReparaciones();
+            clsTipoReparacion tipoRreparacion = new clsTipoReparacion();
+            return tipoRreparacion.LlenarCombo();
         }
     }
 }

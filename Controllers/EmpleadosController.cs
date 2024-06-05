@@ -11,8 +11,16 @@ using System.Web.Http.Cors;
 namespace Taller_Carros.Controllers
 {
     [EnableCors(origins: "http://localhost:50247", headers: "*", methods: "*")]
+    [RoutePrefix("api/Empleados")]
     public class EmpleadosController : ApiController
     {
+        [HttpGet]
+        [Route("LlenarCombo")]
+        public IQueryable LlenarCombo()
+        {
+            clsEmpleado _empleado = new clsEmpleado();
+            return _empleado.LlenarCombo();
+        }
         public IQueryable Get()
         {
             clsEmpleado _empleado = new clsEmpleado();

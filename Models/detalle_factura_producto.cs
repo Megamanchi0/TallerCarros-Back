@@ -14,9 +14,11 @@ namespace Taller_Carros.Models
     
     public partial class detalle_factura_producto
     {
+        public int id { get; set; }
         public int id_factura { get; set; }
         public int id_producto { get; set; }
         public int cantidad { get; set; }
+        public Nullable<decimal> valorUnitario { get; set; }
     
         public virtual Factura Factura { get; set; }
         public virtual Producto Producto { get; set; }

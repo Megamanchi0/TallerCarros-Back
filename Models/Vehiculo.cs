@@ -9,7 +9,6 @@
 
 namespace Taller_Carros.Models
 {
-    using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
     
@@ -18,8 +17,8 @@ namespace Taller_Carros.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Vehiculo()
         {
-            this.Reparacions = new HashSet<Reparacion>();
-            this.Servicio_adicional = new HashSet<Servicio_adicional>();
+            this.detalle_vehiculo_reparacion = new HashSet<detalle_vehiculo_reparacion>();
+            this.detalle_vehiculo_servicio = new HashSet<detalle_vehiculo_servicio>();
         }
     
         public string id_vehiculo { get; set; }
@@ -30,20 +29,14 @@ namespace Taller_Carros.Models
         public int kilometraje { get; set; }
         public int numero_puertas { get; set; }
         public int id_color { get; set; }
-
-        [JsonIgnore]
+    
         public virtual Cliente Cliente { get; set; }
-        [JsonIgnore]
         public virtual Color Color { get; set; }
-        [JsonIgnore]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<detalle_vehiculo_reparacion> detalle_vehiculo_reparacion { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<detalle_vehiculo_servicio> detalle_vehiculo_servicio { get; set; }
         public virtual Modelo Modelo { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        [JsonIgnore]
-        public virtual ICollection<Reparacion> Reparacions { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        [JsonIgnore]
-        public virtual ICollection<Servicio_adicional> Servicio_adicional { get; set; }
-        [JsonIgnore]
         public virtual Tipo_Vehiculo Tipo_Vehiculo { get; set; }
     }
 }

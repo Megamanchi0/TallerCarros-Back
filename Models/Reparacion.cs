@@ -14,18 +14,25 @@ namespace Taller_Carros.Models
     
     public partial class Reparacion
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Reparacion()
+        {
+            this.detalle_factura_reparacion = new HashSet<detalle_factura_reparacion>();
+            this.detalle_reparacion_empleado = new HashSet<detalle_reparacion_empleado>();
+            this.detalle_vehiculo_reparacion = new HashSet<detalle_vehiculo_reparacion>();
+        }
+    
         public int id_reparacion { get; set; }
         public int id_tipo_reparacion { get; set; }
-        public string descripcion { get; set; }
-        public System.DateTime fecha_reparacion { get; set; }
+        public string nombre { get; set; }
         public decimal costo_reparacion { get; set; }
-        public string id_vehiculo { get; set; }
-        public int documento_empleado { get; set; }
-        public int id_factura { get; set; }
     
-        public virtual Empleado Empleado { get; set; }
-        public virtual Factura Factura { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<detalle_factura_reparacion> detalle_factura_reparacion { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<detalle_reparacion_empleado> detalle_reparacion_empleado { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<detalle_vehiculo_reparacion> detalle_vehiculo_reparacion { get; set; }
         public virtual Tipo_reparacion Tipo_reparacion { get; set; }
-        public virtual Vehiculo Vehiculo { get; set; }
     }
 }

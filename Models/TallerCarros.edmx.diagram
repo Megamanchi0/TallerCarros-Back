@@ -4,41 +4,51 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="88276e29868f44b29ee99f16968981be" Name="Diagram1">
-        <EntityTypeShape EntityType="DBTallerCarrosModel.Cargo" Width="1.5" PointX="3" PointY="13.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="DBTallerCarrosModel.Cliente" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="DBTallerCarrosModel.Color" Width="1.5" PointX="3" PointY="7.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="DBTallerCarrosModel.Empleado" Width="1.5" PointX="5.25" PointY="12.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="DBTallerCarrosModel.Factura" Width="1.5" PointX="5.25" PointY="9.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="DBTallerCarrosModel.Marca" Width="1.5" PointX="0.75" PointY="4.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="DBTallerCarrosModel.Modelo" Width="1.5" PointX="3" PointY="4.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="DBTallerCarrosModel.Producto" Width="1.5" PointX="10" PointY="9.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="DBTallerCarrosModel.Proveedor" Width="1.5" PointX="12.25" PointY="9.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="DBTallerCarrosModel.Reparacion" Width="1.5" PointX="7.5" PointY="3.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="DBTallerCarrosModel.Servicio_adicional" Width="1.5" PointX="10.5" PointY="3.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="DBTallerCarrosModel.sysdiagram" Width="1.5" PointX="12.75" PointY="1.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="DBTallerCarrosModel.Tipo_producto" Width="1.5" PointX="7.75" PointY="9.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="DBTallerCarrosModel.Tipo_reparacion" Width="1.5" PointX="5.25" PointY="17" IsExpanded="true" />
-        <EntityTypeShape EntityType="DBTallerCarrosModel.Tipo_Vehiculo" Width="1.5" PointX="3" PointY="9.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="DBTallerCarrosModel.Vehiculo" Width="1.5" PointX="5.25" PointY="3.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="DBTallerCarrosModel.detalle_factura_producto" Width="1.5" PointX="12.25" PointY="12.5" IsExpanded="true" />
+      <Diagram DiagramId="6a5f6065e82042e0b6b74e9ebe021183" Name="Diagram1">
+        <EntityTypeShape EntityType="DBTallerCarrosModel.Cargo" Width="1.5" PointX="9.75" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBTallerCarrosModel.Cliente" Width="1.5" PointX="3" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBTallerCarrosModel.Color" Width="1.5" PointX="3" PointY="10.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBTallerCarrosModel.detalle_factura_producto" Width="1.5" PointX="12.25" PointY="8.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBTallerCarrosModel.detalle_factura_reparacion" Width="1.5" PointX="12.25" PointY="14.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBTallerCarrosModel.detalle_factura_servicio" Width="1.5" PointX="15.25" PointY="12.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBTallerCarrosModel.detalle_producto_proveedor" Width="1.5" PointX="12.25" PointY="5.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBTallerCarrosModel.detalle_reparacion_empleado" Width="1.5" PointX="15.25" PointY="9.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBTallerCarrosModel.detalle_vehiculo_reparacion" Width="1.5" PointX="7.5" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBTallerCarrosModel.detalle_vehiculo_servicio" Width="1.5" PointX="7.5" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBTallerCarrosModel.Empleado" Width="1.5" PointX="12" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBTallerCarrosModel.Factura" Width="1.5" PointX="10" PointY="12.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBTallerCarrosModel.Marca" Width="1.5" PointX="0.75" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBTallerCarrosModel.Modelo" Width="1.5" PointX="3" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBTallerCarrosModel.Producto" Width="1.5" PointX="10" PointY="8.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBTallerCarrosModel.Proveedor" Width="1.5" PointX="10" PointY="6" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBTallerCarrosModel.Reparacion" Width="1.5" PointX="5.25" PointY="15.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBTallerCarrosModel.Servicio_adicional" Width="1.5" PointX="5.25" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBTallerCarrosModel.Tipo_producto" Width="1.5" PointX="7.75" PointY="9" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBTallerCarrosModel.Tipo_reparacion" Width="1.5" PointX="3" PointY="16" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBTallerCarrosModel.Tipo_Vehiculo" Width="1.5" PointX="3" PointY="12.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBTallerCarrosModel.Vehiculo" Width="1.5" PointX="5.25" PointY="3" IsExpanded="true" />
         <AssociationConnector Association="DBTallerCarrosModel.FK_EMPLEADO_CARGO" ManuallyRouted="false" />
         <AssociationConnector Association="DBTallerCarrosModel.FK_VEHICULO_CLIENTE" ManuallyRouted="false" />
         <AssociationConnector Association="DBTallerCarrosModel.FK_VEHICULO_COLOR" ManuallyRouted="false" />
-        <AssociationConnector Association="DBTallerCarrosModel.FK_REPARACION_EMPLEADO" ManuallyRouted="false" />
-        <AssociationConnector Association="DBTallerCarrosModel.FK_SERVICIO_EMPLEADO" ManuallyRouted="false" />
         <AssociationConnector Association="DBTallerCarrosModel.FK_DETALLE_FACTURA_PRODUCTO" ManuallyRouted="false" />
-        <AssociationConnector Association="DBTallerCarrosModel.FK_REPARACION_FACTURA" ManuallyRouted="false" />
-        <AssociationConnector Association="DBTallerCarrosModel.FK_SERVICIO_FACTURA" ManuallyRouted="false" />
+        <AssociationConnector Association="DBTallerCarrosModel.FK_DETALLE_PRODUCTO" ManuallyRouted="false" />
+        <AssociationConnector Association="DBTallerCarrosModel.FK_FACTURA_REPARACION_F" ManuallyRouted="false" />
+        <AssociationConnector Association="DBTallerCarrosModel.FK_FACTURA_REPARACION_R" ManuallyRouted="false" />
+        <AssociationConnector Association="DBTallerCarrosModel.FK_FACTURA_SERVICIO_F" ManuallyRouted="false" />
+        <AssociationConnector Association="DBTallerCarrosModel.FK_FACTURA_SERVICIO_S" ManuallyRouted="false" />
+        <AssociationConnector Association="DBTallerCarrosModel.FK_DETALLE_PP_PRODUCTO" ManuallyRouted="false" />
+        <AssociationConnector Association="DBTallerCarrosModel.FK_DETALLE_PP_PROVEEDOR" ManuallyRouted="false" />
+        <AssociationConnector Association="DBTallerCarrosModel.FK_REPARACION_EMPLEADO_E" ManuallyRouted="false" />
+        <AssociationConnector Association="DBTallerCarrosModel.FK_REPARACION_EMPLEADO_R" ManuallyRouted="false" />
+        <AssociationConnector Association="DBTallerCarrosModel.FK_VEHICULO_REPARACION_R" ManuallyRouted="false" />
+        <AssociationConnector Association="DBTallerCarrosModel.FK_VEHICULO_REPARACION_V" ManuallyRouted="false" />
+        <AssociationConnector Association="DBTallerCarrosModel.FK_VEHICULO_SERVICIO_S" ManuallyRouted="false" />
+        <AssociationConnector Association="DBTallerCarrosModel.FK_VEHICULO_SERVICIO_V" ManuallyRouted="false" />
         <AssociationConnector Association="DBTallerCarrosModel.FK_MODELO_MARCA" ManuallyRouted="false" />
         <AssociationConnector Association="DBTallerCarrosModel.FK_VEHICULO_MODELO" ManuallyRouted="false" />
-        <AssociationConnector Association="DBTallerCarrosModel.FK_DETALLE_PRODUCTO" ManuallyRouted="false" />
         <AssociationConnector Association="DBTallerCarrosModel.FK_PRODUCTO_TIPO_PRODUCTO" ManuallyRouted="false" />
         <AssociationConnector Association="DBTallerCarrosModel.FK_REPARACION_TIPO_REPARACION" ManuallyRouted="false" />
-        <AssociationConnector Association="DBTallerCarrosModel.FK_REPARACION_VEHICULO" ManuallyRouted="false" />
-        <AssociationConnector Association="DBTallerCarrosModel.FK_SERVICIO_VEHICULO" ManuallyRouted="false" />
         <AssociationConnector Association="DBTallerCarrosModel.FK_VEHICULO_TIPO_VEHICULO" ManuallyRouted="false" />
-        <AssociationConnector Association="DBTallerCarrosModel.detalle_producto_proveedor" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
