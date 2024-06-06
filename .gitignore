@@ -1,1 +1,4 @@
 .vs/
+/Web.config
+/Web.Debug.config
+/Web.Release.config
