@@ -84,18 +84,18 @@ namespace Taller_Carros.Controllers
 
         [HttpDelete]
         [Route("EliminarDetalleReparacion")]
-        public string EliminarDetalleReparacion(int idFacturaProducto)
+        public string EliminarDetalleReparacion(int idFacturaReparacion)
         {
             clsFacturacion facturacion = new clsFacturacion();
-            return facturacion.EliminarReparacion(idFacturaProducto);
+            return facturacion.EliminarReparacion(idFacturaReparacion);
         }
 
         [HttpDelete]
         [Route("EliminarDetalleServicio")]
-        public string EliminarDetalleServicio(int idFacturaProducto)
+        public string EliminarDetalleServicio(int idFacturaServicio)
         {
             clsFacturacion facturacion = new clsFacturacion();
-            return facturacion.EliminarServicio(idFacturaProducto);
+            return facturacion.EliminarServicio(idFacturaServicio);
         }
     }
 }

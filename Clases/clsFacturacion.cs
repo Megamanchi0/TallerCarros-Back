@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Web;
 using Taller_Carros.Models;
@@ -23,18 +24,30 @@ namespace Taller_Carros.Clases
         }
         public string GrabarDetalleProducto()
         {
+            Factura factura = dbTaller.Facturas.Find(productoFactura.id_factura);
+            factura.total = factura.total + (productoFactura.valorUnitario * productoFactura.cantidad);
+            dbTaller.Facturas.AddOrUpdate(factura);
+            dbTaller.SaveChanges();
             dbTaller.detalle_factura_producto.Add(productoFactura);
             dbTaller.SaveChanges();
             return productoFactura.id.ToString();
         }
         public string GrabarDetalleReparacion()
         {
+            Factura factura = dbTaller.Facturas.Find(reparacionFactura.id_factura);
+            factura.total = factura.total + reparacionFactura.costo;
+            dbTaller.Facturas.AddOrUpdate(factura);
+            dbTaller.SaveChanges();
             dbTaller.detalle_factura_reparacion.Add(reparacionFactura);
             dbTaller.SaveChanges();
             return reparacionFactura.id.ToString();
         }
         public string GrabarDetalleServicio()
         {
+            Factura factura = dbTaller.Facturas.Find(servicioFactura.id_factura);
+            factura.total = factura.total + servicioFactura.precio;
+            dbTaller.Facturas.AddOrUpdate(factura);
+            dbTaller.SaveChanges();
             dbTaller.detalle_factura_servicio.Add(servicioFactura);
             dbTaller.SaveChanges();
             return servicioFactura.id.ToString();
@@ -52,8 +65,8 @@ namespace Taller_Carros.Clases
                    select new
                    {
                        Eliminar = "<button type=\"button\" id=\"btnEliminar\" class=\"btn-block btn-sm btn-danger\" " +
-                                "onclick=\"Eliminar(" + FP.id + ")\">ELIMINAR</button>",
-                       Cod_tipo_producto = TP.id_tipo_producto,
+                                "onclick=\"EliminarDetalleProducto(" + FP.id + ")\">ELIMINAR</button>",
+                       Id_tipo_producto = TP.id_tipo_producto,
                        Tipo_producto = TP.nombre,
                        Codigo = P.id_producto,
                        Producto = P.nombre,
@@ -71,16 +84,20 @@ namespace Taller_Carros.Clases
                    on FR.id_reparacion equals R.id_reparacion
                    join TR in dbTaller.Set<Tipo_reparacion>()
                    on R.id_tipo_reparacion equals TR.id_tipo_reparacion
+                   join VR in dbTaller.Set<detalle_vehiculo_reparacion>()
+                   on R.id_reparacion equals VR.id_reparacion
                    where F.id_factura == id_factura
                    select new
                    {
                        Eliminar = "<button type=\"button\" id=\"btnEliminar\" class=\"btn-block btn-sm btn-danger\" " +
-                                "onclick=\"Eliminar(" + FR.id + ")\">ELIMINAR</button>",
-                       Cod_tipo_reparacion = TR.id_tipo_reparacion,
+                                "onclick=\"EliminarDetalleReparacion(" + FR.id + ")\">ELIMINAR</button>",
+                       Id_tipo_reparacion = TR.id_tipo_reparacion,
                        Tipo_reparacion = TR.nombre,
-                       Codigo = R.id_reparacion,
-                       Producto = R.nombre,
-                       Costo = FR.costo
+                       Id_reparacion = R.id_reparacion,
+                       Reparacion = R.nombre,
+                       Placas_vehiculo = VR.id_vehiculo,
+                       Costo = FR.costo,
+                       Fecha_reparacion = VR.fecha_reparacion 
                    };
         }
         public IQueryable LlenarTablaServicios(int id_factura)
@@ -90,14 +107,18 @@ namespace Taller_Carros.Clases
                    on F.id_factura equals FS.id_factura
                    join S in dbTaller.Set<Servicio_adicional>()
                    on FS.id_servicio equals S.id_servicio_adicional
+                   join VS in dbTaller.Set<detalle_vehiculo_servicio>()
+                   on S.id_servicio_adicional equals VS.id_servicio
                    where F.id_factura == id_factura
                    select new
                    {
                        Eliminar = "<button type=\"button\" id=\"btnEliminar\" class=\"btn-block btn-sm btn-danger\" " +
-                                "onclick=\"Eliminar(" + FS.id + ")\">ELIMINAR</button>",
+                                "onclick=\"EliminarDetalleServicio(" + FS.id + ")\">ELIMINAR</button>",
                        Codigo = S.id_servicio_adicional,
                        Servicio_Adicional = S.nombre,
-                       Precio = S.precio
+                       Placas_Vehiculo = VS.id_vehiculo,
+                       Precio = S.precio,
+                       Fecha_Servicio = VS.fecha_servicio
                    };
         }
 
